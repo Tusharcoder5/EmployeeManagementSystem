@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Employee management System</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+	crossorigin="anonymous">
+</head>
+<body>
+
+
+	<div style="margin-top:40px;" class="text-center container">
+	<h1>Employee Management System</h1>
+	</div>
+	<div style="margin-top:70px;" class="container">
+	
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                <div class="card">
+                    <div class="card-body">
+                        <h4 class="text-center text-secondary">Add Employee</h4>
+                        
+                        <form th:action="@{/saveEmployee}" th:object="${employee}" method="post" class="needs-validation" novalidate>
+                        
+                             
+                             
+                             <div class="form-group">
+                                 <label for="add">Enter  first name</label> <input type="text" th:field="*{firstName}"
+                                     class="form-control" name="address" id="add" required>
+                                     <div class="invalid-feedback">
+                                         Please enter first name.
+                                     </div>
+                             </div>
+                             <div class="form-group">
+                                 <label for="add">Enter  last name</label> <input type="text" th:field="*{lastName}"
+                                     class="form-control" name="address" id="add" required>
+                                     <div class="invalid-feedback">
+                                         Please enter last name.
+                                     </div>
+                             </div>
+                             
+                             <div class="form-group">
+                                 <label for="mail">Enter Email</label> <input type="email" th:field="*{email}"
+                                     class="form-control" name="email" id="mail" required>
+                                     <div class="invalid-feedback">
+                                         Please enter valid email address.
+                                     </div>
+                             </div>
+                             
+                             <div class="text-center">
+                             
+                             <button type="submit" class="btn btn-info col-2">Submit</button>
+                             </div>
+                             
+                        </form>
+                    </div> 
+                </div> 
+            </div>
+        </div>
+    
+    </div>
+	<div style="margin-top:30px;" class="text-center">
+		<a  th:href = "@{/}"> Back to Employee List</a>
+	</div>
+
+	<script type="text/javascript">
+  // Example starter JavaScript for disabling form submissions if there are invalid fields
+     (() => {
+       'use strict'
+
+       // Fetch all the forms we want to apply custom Bootstrap validation styles to
+       const forms = document.querySelectorAll('.needs-validation')
+
+       // Loop over them and prevent submission
+       Array.from(forms).forEach(form => {
+         form.addEventListener('submit', event => {
+           if (!form.checkValidity()) {
+             event.preventDefault()
+             event.stopPropagation()
+           }
+
+           form.classList.add('was-validated')
+         }, false)
+       })
+     })()
+     </script>
+	
+</body>
+
+
+</html>
