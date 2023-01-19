@@ -1,15 +1,16 @@
 <!DOCTYPE html>
-<html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
-<title>Employee Management System</title>
+<title>Insert title here</title>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
 	integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
 	crossorigin="anonymous">
 </head>
 <body>
-	
+
+
 	<div style="margin-top:40px;" class="text-center container">
 	<h1>Employee Management System</h1>
 	</div>
@@ -19,11 +20,16 @@
             <div class="col-md-6 offset-md-3">
                 <div class="card">
                     <div class="card-body">
+                    <div th:if="${param.success}">
+					<div class="alert alert-info">You've successfully registered
+						to our awesome app!</div>
+				</div>
+                    
                         <h4 class="text-center text-secondary">Add Employee</h4>
                         
-                        <form th:action="@{/saveEmployee}" th:object="${employee}" method="post" class="needs-validation" novalidate>
+                        <form th:action="@{/registration}" th:object="${employee}" method="post" class="needs-validation" novalidate>
                         
-                             <input type="hidden" th:field="*{id}" />
+                             
                              
                              <div class="form-group">
                                  <label for="add">Enter  first name</label> <input type="text" th:field="*{firstName}"
@@ -48,22 +54,27 @@
                                      </div>
                              </div>
                              
-                             <div class="text-center">
+                            <div class="form-group">
+						<label class="control-label" for="password"> Password </label> <input
+							id="password" class="form-control" type="password"
+							th:field="*{password}" required autofocus="autofocus" />
+					</div>
+
+					<div class="form-group">
+						<button type="submit" class="btn btn-success">Register</button>
+						<span>Already registered? <a href="/" th:href="@{/login}">Login
+								here</a></span>
+					</div>
                              
-                             <button type="submit" class="btn btn-info col-2">Submit</button>
-                             </div>
                              
                         </form>
                     </div> 
                 </div> 
             </div>
         </div>
+       </div>
     
-    </div>
-	<div style="margin-top:30px;" class="text-center">
-		<a  th:href = "@{/home}"> Back to Employee List</a>
-	</div>
-
+    
 	<script type="text/javascript">
   // Example starter JavaScript for disabling form submissions if there are invalid fields
      (() => {
@@ -85,6 +96,7 @@
        })
      })()
      </script>
+	
 </body>
 
 

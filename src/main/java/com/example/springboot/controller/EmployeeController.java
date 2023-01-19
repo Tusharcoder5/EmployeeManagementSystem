@@ -10,18 +10,20 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.springboot.model.Employee;
 import com.example.springboot.service.EmployeeService;
 
 
 @Controller
+//@RequestMapping("/home")
 public class EmployeeController {
 	Logger logger=LoggerFactory.getLogger(EmployeeController.class);
 	
 	@Autowired
 	private EmployeeService employeeService;
+	
 	
 	@GetMapping("/")
 	public String viewHomePage(Model model) {
@@ -38,12 +40,12 @@ public class EmployeeController {
 		return "new_employee";
 	}
 	
-	@PostMapping("/saveEmployee")
-	public String saveEmployee(@ModelAttribute("employee") Employee employee) {
-		// save employee to database
-		employeeService.saveEmployee(employee);
-		return "redirect:/";
-	}
+//	@PostMapping("/saveEmployee")
+//	public String saveEmployee(@ModelAttribute("employee") Employee employee) {
+//		// save employee to database
+//		employeeService.saveEmployee(employee);
+//		return "redirect:/";
+//	}
 	
 	@GetMapping("/showFormForUpdate/{id}")
 	public String showFormForUpdate(@PathVariable ( value = "id") long id, Model model) {
@@ -63,6 +65,11 @@ public class EmployeeController {
 		// call delete employee method 
 		this.employeeService.deleteEmployeeById(id);
 		return "redirect:/";
+	}
+	
+	@GetMapping("/login")
+	public String login() {
+		return "login";
 	}
 	
 		
