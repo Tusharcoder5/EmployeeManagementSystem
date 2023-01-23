@@ -7,6 +7,10 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -70,6 +74,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		this.employeeRepository.deleteById(id);
 		
 	}
+	
 
 
 	@Override
@@ -96,6 +101,39 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return roles.stream().map(role -> new SimpleGrantedAuthority(role.getName())).collect(Collectors.toList());
 
 	}
+
+
+	@Override
+	public Page<Employee> findPaginated(int pageNo, int pageSize, String sortField, String sortDirection) {
+		Sort sort = sortDirection.equalsIgnoreCase(Sort.Direction.ASC.name()) ? Sort.by(sortField).ascending() :
+			Sort.by(sortField).descending();
+		
+		Pageable pageable = PageRequest.of(pageNo - 1, pageSize, sort);
+		return this.employeeRepository.findAll(pageable);
+	}
+
+
+	@Override
+	public List<Employee> getByKeyword(String keyword) {
+		// TODO Auto-generated method stub
+		return employeeRepository.findByKeyword(keyword);
+	}
+
+
+	@Override
+	public Employee add(UserRegistrationDto registrationDto) {
+		Employee employee = new Employee(registrationDto.getFirstName(), 
+				registrationDto.getLastName(), registrationDto.getEmail(),
+				 passwordEncoder.encode(registrationDto.getPassword()), Arrays.asList(new Roles("ROLE_USER")));
+		
+		return employeeRepository.save(employee);
+	}
+
+
+	
+
+
+	
 
 
 	

@@ -21,7 +21,7 @@
                     <div class="card-body">
                         <h4 class="text-center text-secondary">Add Employee</h4>
                         
-                        <form th:action="@{/saveEmployee}" th:object="${employee}" method="post" class="needs-validation" novalidate>
+                        <form th:action="@{/addEmployee}" th:object="${employee}" method="post" class="needs-validation" novalidate>
                         
                              <input type="hidden" th:field="*{id}" />
                              
@@ -61,7 +61,7 @@
     
     </div>
 	<div style="margin-top:30px;" class="text-center">
-		<a  th:href = "@{/home}"> Back to Employee List</a>
+		<a  th:href = "@{/}"> Back to Employee List</a>
 	</div>
 
 	<script type="text/javascript">
